@@ -1,5 +1,8 @@
-import requests
+import requests,json
 
+with open('token.json', encoding='utf-8')as f :
+    token = json.load(f)
+    
 class Notify:
     def __init__(self, token):
         self.token = token 
@@ -28,8 +31,8 @@ class Notify:
         r = requests.post("https://notify-api.line.me/api/notify", headers = headers, params = payload)
         return r.status_code 
 
-myNotify = Notify(token = "1v2ta7DfuYFLrWCiCLDTj7PinmNfD92WL5Wc8l1lvEq")
-# myNotify.sendmsg(msg = "文字測試")
-# res = myNotify.localimg(msg = "我是熊大" , pic = 'image/brown.png')
-# myNotify.netimg(msg = "小熊維尼" , picurl = "https://dvblobcdnjp.azureedge.net//Content/Upload/Popular/Images/2017-07/fa2c3d72-7fad-4ccf-9857-e90af952b956_m.jpg")
+myNotify = Notify(token = token["token"])
+myNotify.sendmsg(msg = "文字測試")
+res = myNotify.localimg(msg = "我是熊大" , pic = 'image/brown.png')
+myNotify.netimg(msg = "小熊維尼" , picurl = "https://dvblobcdnjp.azureedge.net//Content/Upload/Popular/Images/2017-07/fa2c3d72-7fad-4ccf-9857-e90af952b956_m.jpg")
 myNotify.sticker(msg ="貼圖測試" , packageid = 446 ,stickerID = 1988)
